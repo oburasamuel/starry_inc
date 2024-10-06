@@ -38,7 +38,7 @@ users = {}
 
 def create_account():
 
-    username = input('Enter a username: ')
+    username = input("Enter a username: ")
 
     if username in users:
 
@@ -74,4 +74,66 @@ def main():
     while True:
         print("\nWelcome to the Sampay Payement App")
         print("1. Create Account")
+        print("2. Login")
+        print("3. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            create_account()
+
+        elif choice == '2':
+            user = login()
+
+            if user:
+                while True:
+                    display_menu()
+                    option = input("Choose an option: ")
+
+                    if option == '1':
+                        amount = float(input("Enter deposit amount: "))
+                        user.deposit(amount)
+
+                    elif option == '2':
+                        amount = float(input("Enter withdrawal amount: "))
+
+                        user.withdrawal(amount)
+
+                    elif option == '3':
+                        recipient_name = input("Enter recipient username: ")
+
+                        if recipient_name in users:
+                            recipient = users[recipient_name]
+                            amount = float(input(f'Enter amount to transfer to {recipient_name}: '))
+                            user.transfer(amount, recipient)
+
+                        else:
+                            print("recipient username not found.")
+                    
+                    elif option == '4':
+                        print(f'{user.username} Balance: ${user.balance}')
+
+                    elif option == '5':
+                        print("Logging out...")
+
+                        break
+
+                    else:
+                        print("Invalid option. Please try again.")
+
+
+        elif choice == '3':
+            print("Exiting the application. Goodbye!")
+
+            break
+
+        else:
+            print("Invalid option. Please choose again.")
+
+
+if __name__ == '__main__':
+
+    main()
+
+
         
